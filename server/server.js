@@ -7,7 +7,7 @@ const app = express();
 // Middlewares 
 app.use(cors()) // Allows other server or domain 
 app.use(morgan('dev'))
-
+app.use(express.json())
 
 
 //Routing
@@ -16,8 +16,9 @@ app.use("/auth",authRoute);
 
 // Error handing
 app.use((err,req,res,next)=>{
-    res.json({
-        message:"Something Wrong"
+    console.log(err)
+    res.status(err.code || 500).json({
+        message:err.message || "Something Wrong !!!"
     })
 })
 
